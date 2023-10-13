@@ -7,9 +7,9 @@ URL = "https://fritz.box/start"
 payload = { 
             "loginView": "user", 
             "username": "backupuser",
-            "uiPass": "kek_24",
-            "uiPassInput": "kek_24",
-            "PasswordInput": "kek_24",
+            "uiPass": " ",
+            "uiPassInput": " ",
+            "PasswordInput": " ",
         } 
 
 
