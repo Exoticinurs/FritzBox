@@ -1,30 +1,36 @@
 import time
 import requests 
 URL = "http://fritz.box/tools/kids_not_allowed.lua" 
-amount = 0
-tickets = [
-        819365,	606287,	437406,	493354,
-537631,	751922,	901579,	663945,	947862,
-    ]
+Location = "YOUR_PATH_TO_TICKET.TXT"
 
-def getTicket(amount):
-    return tickets[amount]
 
+
+with open(Location) as f:
+    tickets = f.read()
+    
+    
+tickets_list = [ticket.strip() for ticket in tickets.split() if ticket.strip()]
+
+def getTicket():
+     for i in range(0, 10):
+          return tickets_list.pop(0)
+        
+        
 def main():
-    global amount
-    while amount < 9:
-        time.sleep(1)
-        amount +=1
-        print(amount)
-        payload = { 
-            "account": "landeviceUID-13424", 
-            "ticket": getTicket(amount),
-        } 
+    while True: 
+        try:
+            payload = { 
+                "account": "landeviceUID-13424", 
+                "ticket": getTicket(),
+            } 
 
-        s = requests.session() 
-        response = s.post(URL, data=payload) 
-        print(response.status_code) # If the request went Ok we usually get a 200 status. 
-        print(response.text) # This is the HTML content of the page.
+            s = requests.session()
+            time.sleep(1)
+            response = s.post(URL, data=payload)
+            print(response.status_code) 
+        except IndexError:
+            print("No more tickets")
+            exit(0)
 
 if __name__ == "__main__":
     main()
